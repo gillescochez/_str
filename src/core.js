@@ -5,7 +5,7 @@ var JStrings = function(options){
 
 // JStrings default settings
 JStrings.defaults = {
-
+    extendCore: false
 };
 
 // internal helper function to extend objects
