@@ -1,32 +1,52 @@
-// Create JStrings namespace/class
-var JStrings = function(options){
-    this.settings = this._extend(this.defaults, options); 
+
+
+// Declare _str class
+var _str = function(str){
+    return new _str.init(str);
 }
 
-// JStrings default settings
-JStrings.defaults = {
-    extendCore: false
-};
+// our initialize function
+_str.init = function(str) {
+    this[0] = str;
+    return this;
+}
 
-// internal helper function to extend objects
-JStrings._extend = function(target, options) {
+// init function prototype shortcut
+_str.fn = _str.init.prototype;
 
-	// function scope variables
-	var name, src, copy;
+// helper function to extend objects
+_str.fn.extend = _str.extend = function(target, options) {
 
-	// Extend the base object
-	for (name in options) {
-	    
-	    src = target[name];
-	    copy = options[name];
+    // no 2nd argument = extend self
+    if (!options) target = this;
 
-	    // Prevent never-ending loop
-	    if (target === copy) continue;
+    // function scope variables
+    var name, src, copy;
 
-	    // Don't copy undefined values
-	    if (copy !== undefined) target[name] = copy;
-	}
+    // Extend the base object
+    for (name in options) {
+	
+	// grab original and new value
+	src = target[name];
+	copy = options[name];
 
-	// Return the modified object
-	return target;
-};
+	// Prevent never-ending loop
+	if (target === copy) continue;
+
+	// Don't copy undefined values
+	if (copy !== undefined) target[name] = copy;
+    }
+
+    // Return the modified object
+    return target;
+}
+
+_str.extend({
+    test: function() {
+	alert('boo');
+    }
+});
+
+_str.fn.extend({
+    
+});
