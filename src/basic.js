@@ -10,7 +10,7 @@ extend(_str.fn, {
 	return this[0].replace(/^\s+|\s+$/g, '');
     },
     _nl2br: function() {
-	return this[0].replace( "/n", '<br />');
+	return this[0].replace( '/n', '<br />');
     }
 });
 
