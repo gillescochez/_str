@@ -1,0 +1,1 @@
+started for fun and to work on my string manipulation skills _str is a little strings manipulation library which aims to simplify heavy strings manipulation. Ideal final usage var formattedString = _str('some strings goes here').low().up(0).append('.');
