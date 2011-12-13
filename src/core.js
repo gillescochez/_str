@@ -1,6 +1,4 @@
-
-
-// Declare _str class
+// _str name space
 var _str = function(str){
     return new _str.init(str);
 }
@@ -11,14 +9,11 @@ _str.init = function(str) {
     return this;
 }
 
-// init function prototype shortcut
+// init function prototype linking
 _str.fn = _str.init.prototype;
 
 // helper function to extend objects
-_str.fn.extend = _str.extend = function(target, options) {
-
-    // no 2nd argument = extend self
-    if (!options) target = this;
+function extend(target, options) {
 
     // function scope variables
     var name, src, copy;
@@ -41,12 +36,15 @@ _str.fn.extend = _str.extend = function(target, options) {
     return target;
 }
 
-_str.extend({
-    test: function() {
-	alert('boo');
-    }
-});
+// extend helper linking
+_str.extend = extend;
 
-_str.fn.extend({
-    
-});
+// herlper function for basic loop
+function each(data, fn) {
+    if (typeof data === 'string') data = data.split(' ');
+    var len = data.length || 0, i = 0;
+    for (; i < len; i++ ) fn(i, data[i]);
+}
+
+// each helper linking
+_str.each = each;
