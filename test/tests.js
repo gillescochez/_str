@@ -1,11 +1,35 @@
-test('Core system', function(){
+// Test core functions
+test('core.js', function(){
+    
+    // test count
+    expect(3);
 
-    expect(2);
+    // make sure _str is exposed
+    ok(_str, '_str is exposed');
 
-    ok(_str, '_str');
-
+    // extend helper test
     var target = {a:1}, options = {b:2}, result = {a:1, b:2};
-    deepEqual(_str.extend(target, options), result, '_str.extend');
+    deepEqual(_str.extend(target, options), result, 'extend helper');
+
+    // each helper test
+    var array = ['a','b'], resArray = [];
+    _str.each('a b', function(i, val) {
+	resArray[i] = val;
+    });
+    deepEqual(array, resArray, 'each helper');
+
 });
-console.log(_str('boo'));
-console.log(_str('test ').trim().end().length);
+
+// Test basic functions
+test('basic.js', function() {
+
+    // test count
+    expect(5);
+
+    // tests setup
+    equal(_str('a').end(), 'a', 'end');
+    equal(_str(' a ').trim().end(), 'a', 'trim');
+    equal(_str(' a').ltrim().end(), 'a', 'ltrim');
+    equal(_str('a ').rtrim().end(), 'a', 'rtrim');
+    equal(_str('A\nB').nl2br().end(), 'A<br />B', 'nl2br');
+});
