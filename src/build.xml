@@ -14,7 +14,7 @@
     <target name="concatJS">
 	<concat destfile="../build/_str.js">
 	    <filelist dir="./" files="buildHead.js" />
-	    <filelist dir="../build" files="core.js,basic.js,html.js" />
+	    <filelist dir="../build" files="core.js,helper.js,basic.js,html.js" />
 	    <filelist dir="./" files="buildFoot.js" />
     	</concat>
     </target>

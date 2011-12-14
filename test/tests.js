@@ -2,23 +2,12 @@
 test('core.js', function(){
     
     // test count
-    expect(4);
+    expect(3);
 
     // make sure _str is exposed
-    ok(_str, '_str is exposed');
-
-    // extend helper test
-    var target = {a:1}, options = {b:2}, result = {a:1, b:2};
-    deepEqual(_str.extend(target, options), result, 'extend helper');
-
-    // each helper test
-    var array = ['a','b'], resArray = [];
-    _str.each('a b', function(i, val) { resArray[i] = val; });
-    deepEqual(array, resArray, 'each helper');
-
-    // isString helper test
-    ok(_str.isString('a'), 'isString');
-
+    ok(_str, '_str');
+    equal(_str.init('a')[0], 'a', 'basic string build with init');
+    ok(_str.fn === _str.init.prototype, 'fn === in t prototype');
 });
 
 // Test basic functions
