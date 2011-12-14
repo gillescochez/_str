@@ -48,3 +48,11 @@ function each(data, fn) {
 
 // each helper linking
 _str.each = each;
+
+// string type check helper
+function isString(value) {
+    return (typeof(value) == 'string');
+}
+
+// isString helper linking
+_str.isString = isString;
