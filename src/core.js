@@ -1,5 +1,6 @@
 // _str name space
-var _str = function(str){
+var slice = Array.prototype.slice,
+    _str = function(str){
     return new _str.init(str);
 }
 
@@ -50,9 +51,16 @@ function each(data, fn) {
 _str.each = each;
 
 // string type check helper
-function isString(value) {
-    return (typeof(value) == 'string');
+function isString(it) {
+    return (typeof(it) == 'string');
 }
 
 // isString helper linking
 _str.isString = isString;
+
+function isArray(it) {
+    return (typeof(it) == 'object');
+}
+
+// isArray helper linking
+_str.isArray = isArray;
