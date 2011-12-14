@@ -14,7 +14,7 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(13);
+    expect(17);
 
     // tests setup
     equal(_str('a').end(), 'a', 'end');
@@ -27,10 +27,17 @@ test('basic.js', function() {
     equal(_str('aa bb').upFirstAll().end(), 'Aa Bb', 'upFirstAll');
     equal(_str('abcd').reverse().end(), 'dcba', 'reverse');
 
-    // TODO Add more tests for all usage cases of replace
-    equal(_str('abcdabcd').replace('a', 'e').end(), 'ebcdabcd', 'replace');
-    equal(_str('abcdabcd').replaceAll('a','e').end(), 'ebcdebcd', 'replaceAll');
- 
+    // Multiple replace tests to cover all cases
+    equal(_str('abcdabcd').replace('a', 'e').end(), 'ebcdabcd', 'replace(string, string)');
+    equal(_str('abcdabcd').replaceAll('a','e').end(), 'ebcdebcd', 'replaceAll(string, string)');
+    
+    equal(_str('abcdabcd').replace({a:'e'}).end(), 'ebcdabcd', 'replace(obj)');
+    equal(_str('abcdabcd').replaceAll({a:'e'}).end(), 'ebcdebcd', 'replaceAll(obj)');
+
+    equal(_str('abcdabcd').replace(['a'],['e']).end(), 'ebcdabcd', 'replace(array, array)');
+    equal(_str('abcdabcd').replaceAll(['a'],['e']).end(), 'ebcdebcd', 'replaceAll(array, array)');
+
+    // Multiple remove test to cover all cases
     equal(_str('abcdabcd').remove('a').end(), 'bcdabcd', 'remove');
     equal(_str('abcdabcd').removeAll('a').end(), 'bcdbcd', 'removeAll');
 

@@ -1,7 +1,6 @@
-// TODO: Improve manip method so arguments can be passed too and so it keep an history of the changes
-
 // add basic methods
 extend(_str.fn, {
+    // handle all manipulation (TODO Add history tracking)
     manip: function() {
 	this[0] = this['_'+arguments[0]].apply(this, slice.call(arguments, 1));
 	return this;
@@ -35,29 +34,36 @@ extend(_str.fn, {
     _reverse: function() {
 	return this[0].split('').reverse().join('');
     },
-    // TODO Better handling of variables (type, length of both obj correct....)
     _replace: function(src, copy, all) {
+
+	var name, regex, len, i;
 	
-	// basic string to string replace
+	// if copy is boolean assign value to all
+	if (isBoolean(copy)) all = copy;
+
 	if (isString(src) && isString(copy)) {
 	    if (all) src = new RegExp(src, 'gi');
 	    return this[0].replace(src, copy);
 	}
 
-	// if only src is available we assume it is an object replace key with value	
-	if (!copy && !all) {
-	   for (var name in src) this[0] = this[0].replace(name, src[name]);
-	}
-	
-	// array to array replace
 	if (isArray(src) && isArray(copy)) {
-	    for (var i = 0, l = src.length; i < len; i++) this[0] = this[0].replace(src[i], copy[i]);
+	    for (i = 0, len = src.length; i < len; i++) this[0] = this._replace(src[i], copy[i], all);
+	}
+
+	if (isObject(src) && !isObject(copy)) {
+	    for (name in src) {
+		if (all) regex = new RegExp(name, 'gi');
+		else regex = name;
+		this[0] = this[0].replace(regex, src[name]);
+	    }
 	}
 
 	return this[0];
     },
-    _replaceAll: function(src, copy) {
-	return this._replace(src, copy, true);
+    _replaceAll: function() {
+	var args = slice.call(arguments);
+	args.push(true);
+	return this._replace.apply(this, args);
     },
     _remove: function(str) {
 	return this[0].replace(str, '');
