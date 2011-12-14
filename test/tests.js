@@ -22,7 +22,7 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(6);
+    expect(8);
 
     // tests setup
     equal(_str('a').end(), 'a', 'end');
@@ -30,7 +30,9 @@ test('basic.js', function() {
     equal(_str('A').low().end(), 'a', 'low');
     equal(_str(' a ').trim().end(), 'a', 'trim');
     equal(_str(' a').ltrim().end(), 'a', 'ltrim');
-    equal(_str('a ').rtrim().end(), 'a', 'rtrim');  
+    equal(_str('a ').rtrim().end(), 'a', 'rtrim');
+    equal(_str('aa bb').upFirst().end(), 'Aa bb', 'upFirst');
+    equal(_str('aa bb').upFirstAll().end(), 'Aa Bb', 'upFirstAll');
 
 });
 

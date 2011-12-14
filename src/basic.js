@@ -15,6 +15,14 @@ extend(_str.fn, {
     _up: function() {
 	return this[0].toUpperCase();
     },
+    _upFirst: function() {
+	return this[0].charAt(0).toUpperCase() + this[0].substr(1);
+    },
+    _upFirstAll: function() {
+	return this[0].replace(/^([a-z])|\s+([a-z])/g, function ($1) {
+	    return $1.toUpperCase();
+	});
+    },
     _rtrim: function() {
 	return this[0].replace(new RegExp('[ \\s\u00A0]+$', 'g'), '');
     },
@@ -27,7 +35,7 @@ extend(_str.fn, {
 });
 
 // generate public API methods
-each('trim ltrim rtrim low up', function(i, action) {
+each('trim ltrim rtrim low up upFirst upFirstAll', function(i, action) {
     _str.fn[action] = function() {
 	return this.manip(action);
     };
