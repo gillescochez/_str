@@ -13,9 +13,7 @@ test('core.js', function(){
 
     // each helper test
     var array = ['a','b'], resArray = [];
-    _str.each('a b', function(i, val) {
-	resArray[i] = val;
-    });
+    _str.each('a b', function(i, val) { resArray[i] = val; });
     deepEqual(array, resArray, 'each helper');
 
 });
@@ -24,12 +22,24 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(5);
+    expect(6);
 
     // tests setup
     equal(_str('a').end(), 'a', 'end');
+    equal(_str('a').up().end(), 'A', 'up');
+    equal(_str('A').low().end(), 'a', 'low');
     equal(_str(' a ').trim().end(), 'a', 'trim');
     equal(_str(' a').ltrim().end(), 'a', 'ltrim');
-    equal(_str('a ').rtrim().end(), 'a', 'rtrim');
+    equal(_str('a ').rtrim().end(), 'a', 'rtrim');  
+
+});
+
+// Test HTML related strings functions
+test('html.js', function() {
+
+    // test count
+    expect(1);
+    
+    // tests setup
     equal(_str('A\nB').nl2br().end(), 'A<br />B', 'nl2br');
 });
