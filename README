@@ -1,1 +1,7 @@
-started for fun and to work on my string manipulation skills _str is a little strings manipulation library which aims to simplify heavy strings manipulation. Ideal final usage var formattedString = _str('some strings goes here').low().up(0).append('.');
+Mostly created for fun _str is a little strings manipulation library which aims to simplify heavy strings manipulation. 
+
+Usage: var str = _str(' place some string here ').trim().upFirst().append('.').prepend('Example:').end();
+
+It's structured is inspired by jQuery (http://jquery.com) and strings manipulation methods are inspired or partially taken from phpjs (http://phpjs.org).
+
+Thanks to both projects for their amazing work.
