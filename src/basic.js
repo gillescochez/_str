@@ -70,6 +70,12 @@ extend(_str.fn, {
     },
     _removeAll: function(str) {
 	return this._replace(str, '', true);
+    },
+    _append: function(str) {
+	return this[0]+str;
+    },
+    _prepend: function(str) {
+	return str+this[0];
     }
 });
 
@@ -80,7 +86,7 @@ extend(_str.fn, {
 	where all methods starting with _ have their equivalent in the public API. For now it is quite nice
 	to developed with it hardcoded but definately have a look at it later down the line.
 */ 
-each('low up upFirst upFirstAll rtrim ltrim trim reverse replace replaceAll remove removeAll', function(i, action) {
+each('low up upFirst upFirstAll rtrim ltrim trim reverse replace replaceAll remove removeAll append prepend', function(i, action) {
     _str.fn[action] = function() {
 	var args = slice.call(arguments);
 	args.unshift(action);
