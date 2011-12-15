@@ -24,9 +24,18 @@ function extend(target, options) {
 
 // helper function for basic loop
 function each(data, fn) {
+
+    var len, i;
+
     if (typeof data === 'string') data = data.split(' ');
-    var len = data.length || 0, i = 0;
-    for (; i < len; i++ ) fn(i, data[i]);
+
+    len = data.length;
+
+    if (isArray(data)) {
+	for (; i < len; i++ ) fn(i, data[i]);
+    } else {
+	for (i in data) fn(i, data[i]);
+    }
 }
 
 // string type check helper

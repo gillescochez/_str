@@ -44,13 +44,6 @@ extend(_str.fn, {
     }
 });
 
-// generate public API methods
-each('nl2br stripTags stripSlashes htmlEntities', function(i, action) {
-    _str.fn[action] = function() {
-	return this.manip(action);
-    };
-});
-
 // html entities table helper
 function htmlEntitiesTable(table, quote) {
     
