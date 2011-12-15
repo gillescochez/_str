@@ -55,8 +55,11 @@ test('basic.js', function() {
 test('html.js', function() {
 
     // test count
-    expect(1);
+    expect(2);
     
-    // tests setup
+    // nl2br test case
     equal(_str('A\nB').nl2br().end(), 'A<br />B', 'nl2br');
+
+    // stripping function
+    equal(_str('<b>a</b>').stripTags().end(), 'a', 'stripTags');
 });
