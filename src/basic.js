@@ -5,6 +5,9 @@ extend(_str.fn, {
 	this[0] = this['_'+arguments[0]].apply(this, slice.call(arguments, 1));
 	return this;
     },
+    size: function() {
+	return this[0].length;
+    },
     end: function() {
 	return this[0];
     },

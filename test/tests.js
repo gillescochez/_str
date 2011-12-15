@@ -14,10 +14,11 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(22);
+    expect(23);
 
-    // end and eq tests
+    // end, size and eq tests
     equal(_str('a').end(), 'a', 'end');
+    equal(_str('abcd').size(), 4, 'size');
     equal(_str('abcd').eq(1).end(), 'b', 'eq');
 
     equal(_str('a').up().end(), 'A', 'up');
@@ -55,11 +56,16 @@ test('basic.js', function() {
 test('html.js', function() {
 
     // test count
-    expect(2);
+    expect(4);
     
     // nl2br test case
     equal(_str('A\nB').nl2br().end(), 'A<br />B', 'nl2br');
 
     // stripping function
     equal(_str('<b>a</b>').stripTags().end(), 'a', 'stripTags');
+    equal(_str('That\'s').stripSlashes().end(), "That's", 'stripSlahes');
+
+    // html entities convertion
+    equal(_str('a & b').htmlEntities().end(), 'a &amp; b', 'htmlEntities');
+
 });

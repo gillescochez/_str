@@ -1,65 +1,29 @@
-// add basic methods
-extend(_str.fn, {
-    _nl2br: function() {
-	return this[0].replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />');
-    },
-    _stripTags: function(allowed) {
-	
-	allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
-	
-	var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
-	    comments = /<!--[\s\S]*?-->/gi;
-
-	return this[0].replace(comments, '').replace(tags, function ($0, $1) {
-	    return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
-	});
-    },
-    _stripSlashes: function() {
-	return this[0].replace(/\\(.?)/g, function (s, n) {
-	    switch (n) {
-		case '\\': return '\\';
-		case '0': return '\u0000';
-		case '': return '';
-		default: return n;
-	    }
-	});
-    },
-    _htmlEntities: function(quote, charset, enc) {
-	
-	var map = htmlEntitiesTable('HTML_ENTITIES', quote),
-	    symbol = '';
-	     
-	if (!map) return false;
-			         
-	if (quote && quote === 'ENT_QUOTES') map["'"] = '&#039;';
-
-	return this[0].replace(/([\s\S]*?)(&(?:#\d+|#x[\da-f]+|[a-zA-Z][\da-z]*);|$)/g, function (ignore, text, entity) {
-	    for (symbol in map) {
-		if (map.hasOwnProperty(symbol)) {
-		    text = text.split(symbol).join(map[symbol]);
-		}
-	    }
-	    return text + entity;
-	});
-    }
-});
-
-// generate public API methods
-each('nl2br stripTags stripSlashes htmlEntities', function(i, action) {
-    _str.fn[action] = function() {
-	return this.manip(action);
-    };
-});
-
-// html entities table helper
-function htmlEntitiesTable(table, quote) {
-    
+function get_html_translation_table (table, quote_style) {
+    // http://kevin.vanzonneveld.net
+    // +   original by: Philip Peterson
+    // +    revised by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   bugfixed by: noname
+    // +   bugfixed by: Alex
+    // +   bugfixed by: Marco
+    // +   bugfixed by: madipta
+    // +   improved by: KELAN
+    // +   improved by: Brett Zamir (http://brett-zamir.me)
+    // +   bugfixed by: Brett Zamir (http://brett-zamir.me)
+    // +      input by: Frank Forte
+    // +   bugfixed by: T.Wild
+    // +      input by: Ratheous
+    // %          note: It has been decided that we're not going to add global
+    // %          note: dependencies to php.js, meaning the constants are not
+    // %          note: real constants, but strings instead. Integers are also supported if someone
+    // %          note: chooses to create the constants themselves.
+    // *     example 1: get_html_translation_table('HTML_SPECIALCHARS');
+    // *     returns 1: {'"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;'}
     var entities = {},
-        map = {},
-        decimal,
-	constMappingTable = {},
-        constMappingQuoteStyle = {},
-	useTable = {},
+        hash_map = {},
+        decimal;
+    var constMappingTable = {},
+        constMappingQuoteStyle = {};
+    var useTable = {},
         useQuoteStyle = {};
 
     // Translate arguments
@@ -70,10 +34,11 @@ function htmlEntitiesTable(table, quote) {
     constMappingQuoteStyle[3] = 'ENT_QUOTES';
 
     useTable = !isNaN(table) ? constMappingTable[table] : table ? table.toUpperCase() : 'HTML_SPECIALCHARS';
-    useQuoteStyle = !isNaN(quote) ? constMappingQuoteStyle[quote] : quote ? quote.toUpperCase() : 'ENT_COMPAT';
+    useQuoteStyle = !isNaN(quote_style) ? constMappingQuoteStyle[quote_style] : quote_style ? quote_style.toUpperCase() : 'ENT_COMPAT';
 
     if (useTable !== 'HTML_SPECIALCHARS' && useTable !== 'HTML_ENTITIES') {
         throw new Error("Table: " + useTable + ' not supported');
+        // return false;
     }
 
     entities['38'] = '&amp;';
@@ -189,9 +154,9 @@ function htmlEntitiesTable(table, quote) {
     // ascii decimals to real symbols
     for (decimal in entities) {
         if (entities.hasOwnProperty(decimal)) {
-            map[String.fromCharCode(decimal)] = entities[decimal];
+            hash_map[String.fromCharCode(decimal)] = entities[decimal];
         }
     }
 
-    return map;
+    return hash_map;
 }
