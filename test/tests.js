@@ -14,17 +14,23 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(19);
+    expect(21);
 
     // tests setup
     equal(_str('a').end(), 'a', 'end');
+
     equal(_str('a').up().end(), 'A', 'up');
+    equal(_str('aa bb').upFirst().end(), 'Aa bb', 'upFirst');
+    equal(_str('aa bb').upFirstAll().end(), 'Aa Bb', 'upFirstAll');
+
     equal(_str('A').low().end(), 'a', 'low');
+    equal(_str('AA BB').lowFirst().end(), 'aA BB', 'lowFirst');
+    equal(_str('AA BB').lowFirstAll().end(), 'aA bB', 'lowFirstAll');
+    
     equal(_str(' a ').trim().end(), 'a', 'trim');
     equal(_str(' a').ltrim().end(), 'a', 'ltrim');
     equal(_str('a ').rtrim().end(), 'a', 'rtrim');
-    equal(_str('aa bb').upFirst().end(), 'Aa bb', 'upFirst');
-    equal(_str('aa bb').upFirstAll().end(), 'Aa Bb', 'upFirstAll');
+    
     equal(_str('abcd').reverse().end(), 'dcba', 'reverse');
 
     // Multiple replace tests to cover all cases

@@ -8,8 +8,19 @@ extend(_str.fn, {
     end: function() {
 	return this[0];
     },
+    eq: function(key) {
+	return this[0].substr(key, 1);
+    },
     _low: function() {
 	return this[0].toLowerCase();
+    },
+    _lowFirst: function() {
+	return this[0].charAt(0).toLowerCase() + this[0].substr(1);
+    },
+    _lowFirstAll: function() {
+	return this[0].replace(/^([A-Z])|\s+([A-Z])/g, function (f) {
+	    return f.toLowerCase();
+	});
     },
     _up: function() {
 	return this[0].toUpperCase();
@@ -23,10 +34,10 @@ extend(_str.fn, {
 	});
     },
     _rtrim: function() {
-	return this[0].replace(new RegExp('[ \\s\u00A0]+$', 'g'), '');
+	return this[0].replace(/[ \\s\u00A0]+$/g, '');
     },
     _ltrim: function() {
-	return this[0].replace(new RegExp('^[ \\s\u00A0]+', 'g'), '');
+	return this[0].replace(/^[ \\s\u00A0]+/g, '');
     },
     _trim: function() {
 	return this[0].replace(/^\s+|\s+$/g, '');
@@ -86,7 +97,7 @@ extend(_str.fn, {
 	where all methods starting with _ have their equivalent in the public API. For now it is quite nice
 	to developed with it hardcoded but definately have a look at it later down the line.
 */ 
-each('low up upFirst upFirstAll rtrim ltrim trim reverse replace replaceAll remove removeAll append prepend', function(i, action) {
+each('low lowFirst lowFirstAll up upFirst upFirstAll rtrim ltrim trim reverse replace replaceAll remove removeAll append prepend', function(i, action) {
     _str.fn[action] = function() {
 	var args = slice.call(arguments);
 	args.unshift(action);
