@@ -15,13 +15,18 @@ extend(_str.fn, {
 	});
     },
     _stripSlashes: function() {
-	return this[0].replace(/\\(.?)/g, function (s, n) {
-	    switch (n) {
+	return this[0].replace(/\\(.?)/g, function (ignore, text) {
+	    switch (text) {
 		case '\\': return '\\';
 		case '0': return '\u0000';
 		case '': return '';
-		default: return n;
+		default: return text;
 	    }
+	});
+    },
+    _urls: function() {
+	return this[0].replace(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi, function($0, $1) {
+	    return '<a href="'+$0+'">'+$0+'</a>';   
 	});
     },
     _htmlEntities: function(quote, charset, enc) {

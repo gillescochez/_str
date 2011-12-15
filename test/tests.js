@@ -66,7 +66,7 @@ test('basic.js', function() {
 test('html.js', function() {
 
     // test count
-    expect(4);
+    expect(5);
     
     // nl2br test case
     equal(_str('A\nB').nl2br().end(), 'A<br />B', 'nl2br');
@@ -77,5 +77,8 @@ test('html.js', function() {
 
     // html entities convertion
     equal(_str('a & b').htmlEntities().end(), 'a &amp; b', 'htmlEntities');
+
+    // detect and build <a> with URLs in the string
+    equal(_str('http://google.com').urls().end(), '<a href="http://google.com">http://google.com</a>', 'htmlLinks');
 
 });
