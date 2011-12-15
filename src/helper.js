@@ -27,12 +27,12 @@ function each(data, fn) {
 
     var len, i;
 
-    if (typeof data === 'string') data = data.split(' ');
+    if (isString(data)) data = data.split(' ');
 
     len = data.length;
 
     if (isArray(data)) {
-	for (; i < len; i++ ) fn(i, data[i]);
+	for (i = 0; i < len; i++ ) fn(i, data[i]);
     } else {
 	for (i in data) fn(i, data[i]);
     }
