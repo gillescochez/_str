@@ -8,7 +8,7 @@ extend(_str.fn, {
     end: function() {
 	return this[0];
     },
-    eq: function(key) {
+    _eq: function(key) {
 	return this[0].substr(key, 1);
     },
     _low: function() {
@@ -97,7 +97,7 @@ extend(_str.fn, {
 	where all methods starting with _ have their equivalent in the public API. For now it is quite nice
 	to developed with it hardcoded but definately have a look at it later down the line.
 */ 
-each('low lowFirst lowFirstAll up upFirst upFirstAll rtrim ltrim trim reverse replace replaceAll remove removeAll append prepend', function(i, action) {
+each('eq low lowFirst lowFirstAll up upFirst upFirstAll rtrim ltrim trim reverse replace replaceAll remove removeAll append prepend', function(i, action) {
     _str.fn[action] = function() {
 	var args = slice.call(arguments);
 	args.unshift(action);

@@ -14,10 +14,11 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(21);
+    expect(22);
 
-    // tests setup
+    // end and eq tests
     equal(_str('a').end(), 'a', 'end');
+    equal(_str('abcd').eq(1).end(), 'b', 'eq');
 
     equal(_str('a').up().end(), 'A', 'up');
     equal(_str('aa bb').upFirst().end(), 'Aa bb', 'upFirst');
