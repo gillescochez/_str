@@ -6,7 +6,18 @@
 <script src="../build/_str.js"></script>
 <script src="tests.js"></script>
 <body>
-<p><a href="helper.html">Helper functions tests</a></p>
+<p>
+    <a href="helper.html">Helper functions tests</a> - 
+    Test write(): <span id="writeTest"><script>_str('success').write();</script></span>
+    <script>
+    var el = document.getElementById('writeTest');
+    if (el.innerText == 'success') el.style.color = 'green';
+    else {
+	el.innerText = 'fail';
+	el.style.color = 'red';
+    }
+    </script>
+</p>
 <h1 id="qunit-header">_str tests</h1>
 <h2 id="qunit-banner"></h2>
 <div id="qunit-testrunner-toolbar"></div>
