@@ -2,24 +2,34 @@
 test('core.js', function(){
     
     // test count
-    expect(3);
+    expect(11);
 
-    // make sure _str is exposed
+    // some basic core tests
     ok(_str, '_str');
     equal(_str.init('a')[0], 'a', 'basic string build with init');
     ok(_str.fn === _str.init.prototype, 'fn === in t prototype');
+
+    // end, size and eq tests
+    equal(_str('a').end(), 'a', 'end');
+    equal(_str('abcd').size(), 4, 'size');
+    equal(_str('abcd').eq(1).end(), 'b', 'eq');
+
+    // history based tests
+    equal(_str('a').append('b').back().end(), 'a', 'back method');
+    deepEqual(_str('a').append('b').append('c').getHistory(), ['a','ab'], 'history array');
+
+    // storage based tests
+    equal(_str('a').set('test').append('b').get('test'), 'a', 'basic set / get');
+    deepEqual(_str('a').set('testA').append('b').set('testAB').get(), {testA:'a',testAB:'ab'}, 'multiple set / get as object');
+    equal(_str('a').set('test','foo').get('test'), 'foo', 'custom value set / get');
+
 });
 
 // Test basic functions
 test('basic.js', function() {
 
     // test count
-    expect(23);
-
-    // end, size and eq tests
-    equal(_str('a').end(), 'a', 'end');
-    equal(_str('abcd').size(), 4, 'size');
-    equal(_str('abcd').eq(1).end(), 'b', 'eq');
+    expect(20);
 
     equal(_str('a').up().end(), 'A', 'up');
     equal(_str('aa bb').upFirst().end(), 'Aa bb', 'upFirst');

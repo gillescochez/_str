@@ -1,16 +1,5 @@
 // add basic methods
 extend(_str.fn, {
-    // handle all manipulation (TODO Add history tracking)
-    manip: function() {
-	this[0] = this['_'+arguments[0]].apply(this, slice.call(arguments, 1));
-	return this;
-    },
-    size: function() {
-	return this[0].length;
-    },
-    end: function() {
-	return this[0];
-    },
     _eq: function(key) {
 	return this[0].substr(key, 1);
     },
@@ -48,6 +37,7 @@ extend(_str.fn, {
     _reverse: function() {
 	return this[0].split('').reverse().join('');
     },
+    // TODO Improve replace
     _replace: function(src, copy, all) {
 
 	var name, regex, len, i;
@@ -79,6 +69,7 @@ extend(_str.fn, {
 	args.push(true);
 	return this._replace.apply(this, args);
     },
+    // TODO make remove as flexible as replace
     _remove: function(str) {
 	return this[0].replace(str, '');
     },
