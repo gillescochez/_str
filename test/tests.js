@@ -37,7 +37,12 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(21);
+    expect(24);
+
+    // subtring methods
+    equal(_str('abcd').sub(0,2).end(), 'ab', 'sub(0,2)');
+    equal(_str('abcdabcd').subCount('ab'), 2, 'subCount(ab)');
+    equal(_str('abcde').subCompare('bc', 1, 2), 0, 'subCompare(bc, 1, 2)');
 
     // uppercasing
     equal(_str('a').up().end(), 'A', 'up');

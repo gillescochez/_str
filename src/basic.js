@@ -1,7 +1,58 @@
+// TODO rewrite some methods so the variables name used are more consistant
 // add basic methods
 extend(_str.fn, {
     _eq: function(key) {
 	return this[0].substr(key, 1);
+    },
+
+    _sub: function(start, end) {
+	return this[0].substr(start, end);
+    },
+    _subReplace: function(replace, start, length) {
+	if (start < 0) start = start + this[0].length;
+	length = length !== undefined ? length : this[0].length;
+	if (length < 0) length = length + this[0].length - start;
+	return this[0].slice(0, start) + replace.substr(0, length) + replace.slice(length) + this[0].slice(start + length);
+    },
+    subCount: function(needle, offset, length) {
+	
+	var pos = 0,
+	    cnt = 0;
+
+	if (isNaN(offset)) offset = 0;
+	if (isNaN(length)) length = 0;
+	offset--;
+ 
+	while ((offset = this[0].indexOf(needle, offset + 1)) != -1) {
+	    if (length > 0 && (offset + needle.length) > length) return false;
+	    else cnt++;
+	}
+ 
+	return cnt;
+    },
+    subCompare: function(str, offset, length, case_insensitivity) {
+
+	var main = this[0];
+
+	if (!offset && offset !== 0) throw 'Missing offset for substr_compare()';
+	if (offset < 0) offset = main.length + offset;
+ 
+	if (length && length > (main.length - offset)) return false;
+	length = length || main.length - offset;
+ 
+	main = main.substr(offset, length);
+	str = str.substr(0, length);
+	
+	if (case_insensitivity) {
+	    main = (main + '').toLowerCase();
+	    str = (str + '').toLowerCase();
+	    if (main == str) {
+		return 0;
+	    }
+	    return (main > str) ? 1 : -1;
+	}
+	
+	return ((main == str) ? 0 : ((main > str) ? 1 : -1));
     },
     // TODO extend so we can pass it character keys to up character in specific location (low(int), low(array))
     // If boolean are passed used to create shortcut to lowFirst (low(true)) and lowFirstAll (low(true,true))
