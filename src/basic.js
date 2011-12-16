@@ -3,6 +3,8 @@ extend(_str.fn, {
     _eq: function(key) {
 	return this[0].substr(key, 1);
     },
+    // TODO extend so we can pass it character keys to up character in specific location (low(int), low(array))
+    // If boolean are passed used to create shortcut to lowFirst (low(true)) and lowFirstAll (low(true,true))
     _low: function() {
 	return this[0].toLowerCase();
     },
@@ -14,6 +16,8 @@ extend(_str.fn, {
 	    return f.toLowerCase();
 	});
     },
+    // TODO extend so we can pass it character keys to up character in specific location (up(int), up(array))
+    // If boolean are passed used to create shortcut to upFirst (up(true)) and upFirstAll (up(true,true))
     _up: function() {
 	return this[0].toUpperCase();
     },
@@ -75,6 +79,27 @@ extend(_str.fn, {
     },
     _removeAll: function(str) {
 	return this._replace(str, '', true);
+    },
+    _wordwrap: function(width, sep, cut) {
+
+	var m = width || 75,
+	    b = sep || "\n",
+	    c = cut || false,
+	    i, j, l, s, r;
+
+	str = this[0];
+
+	if (m < 1) return str;
+
+	for (i = -1, l = (r = str.split(/\r\n|\n|\r/)).length; ++i < l; r[i] += s) {
+	    for (s = r[i], r[i] = ""; s.length > m; r[i] += s.slice(0, j) + ((s = s.slice(j)).length ? b : "")) {
+		j = c == 2 || (j = s.slice(0, m + 1).match(/\S*(\s)?$/))[1] 
+		? m : j.input.length - j[0].length || c == 1 && m || j.input.length 
+		+ (j = s.slice(m).match(/^\S*/)).input.length;
+	    }
+	}
+
+	return r.join("\n");
     },
     _append: function(str) {
 	return this[0]+str;

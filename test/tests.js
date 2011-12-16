@@ -37,21 +37,28 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(20);
+    expect(21);
 
+    // uppercasing
     equal(_str('a').up().end(), 'A', 'up');
     equal(_str('aa bb').upFirst().end(), 'Aa bb', 'upFirst');
     equal(_str('aa bb').upFirstAll().end(), 'Aa Bb', 'upFirstAll');
 
+    // lowercasing
     equal(_str('A').low().end(), 'a', 'low');
     equal(_str('AA BB').lowFirst().end(), 'aA BB', 'lowFirst');
     equal(_str('AA BB').lowFirstAll().end(), 'aA bB', 'lowFirstAll');
     
+    // triming
     equal(_str(' a ').trim().end(), 'a', 'trim');
     equal(_str(' a').ltrim().end(), 'a', 'ltrim');
     equal(_str('a ').rtrim().end(), 'a', 'rtrim');
     
+    // reversing
     equal(_str('abcd').reverse().end(), 'dcba', 'reverse');
+
+    // wrapping up
+    equal(_str('abcd abcd abcd').wordwrap(10, '<br />').end(), 'abcd abcd <br />abcd', 'wordwrap(10, <br />)');
 
     // Multiple replace tests to cover all cases
     equal(_str('abcdabcd').replace('a', 'e').end(), 'ebcdabcd', 'replace(string, string)');
