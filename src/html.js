@@ -34,8 +34,16 @@ extend(_str.fn, {
 	    return '<a href="mailto:'+$0+'">'+$0+'</a>';   
 	});
     },
-    _htmlEntities: function(quote, charset, enc) {
-	
+    _encodeUtf8: function() {
+	return unescape(encodeURIComponent(this[0]));
+    },
+    _decodeUtf8: function() {
+	return decodeURIComponent(escape(this[0]));
+    },
+    _encodeEntities: function(quote) {
+
+	this.decodeUtf8();
+
 	var map = htmlEntitiesTable('HTML_ENTITIES', quote),
 	    symbol = '';
 	     
@@ -45,12 +53,116 @@ extend(_str.fn, {
 
 	return this[0].replace(/([\s\S]*?)(&(?:#\d+|#x[\da-f]+|[a-zA-Z][\da-z]*);|$)/g, function (ignore, text, entity) {
 	    for (symbol in map) {
-		if (map.hasOwnProperty(symbol)) {
-		    text = text.split(symbol).join(map[symbol]);
-		}
+		if (map.hasOwnProperty(symbol)) text = text.split(symbol).join(map[symbol]);
 	    }
 	    return text + entity;
 	});
+    },
+
+    // html entities to characters
+    _decodeEntities: function(quote) {
+	
+	var map = {},
+	    symbol = '',
+	    entity = '';
+					 
+	if (false === (map = htmlEntitiesTable('HTML_ENTITIES', quote))) return false;
+							  
+	delete map['&'];
+	map['&'] = '&amp;';
+									   
+	for (symbol in map) {
+	    entity = map[symbol];
+	    this[0] = this[0].split(entity).join(symbol);
+	}
+
+	this[0] = this[0].split('&#039;').join("'");
+												        
+	return this[0];
+    },
+
+    // html special characters to entities
+    _encodeSpecial: function(quote, enc) {
+    
+	var optTemp = 0,
+	    i = 0,
+	    noquotes = false;
+
+	if (typeof quote === 'undefined' || quote === null) quote = 2;
+	
+	string = this[0];
+    
+	if (enc !== false) string = string.replace(/&/g, '&amp;');
+
+	string = string.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+ 
+	var OPTS = {
+	    'ENT_NOQUOTES': 0,
+	    'ENT_HTML_QUOTE_SINGLE': 1,
+	    'ENT_HTML_QUOTE_DOUBLE': 2,
+	    'ENT_COMPAT': 2,
+	    'ENT_QUOTES': 3,
+	    'ENT_IGNORE': 4
+	}
+	if (quote === 0) noquotes = true;
+
+	if (typeof quote !== 'number') { // Allow for a single string or an array of string flags
+	    quote = [].concat(quote);
+	    for (i = 0; i < quote.length; i++) {
+
+		if (OPTS[quote[i]] === 0) noquotes = true;
+		else if (OPTS[quote[i]]) optTemp = optTemp | OPTS[quote[i]];
+	    }
+	    quote = optTemp;
+	}
+
+	if (quote & OPTS.ENT_HTML_QUOTE_SINGLE) string = string.replace(/'/g, '&#039;');
+
+	if (!noquotes) string = string.replace(/"/g, '&quot;');
+ 
+	return string;
+    },
+
+    // html special entities to characters
+    _decodeSpecial: function(quote) {
+
+	var optTemp = 1,
+	    i = 0,
+	    noquotes = false;
+
+	string = this[0];
+
+	if (typeof quote === 'undefined') quote_style = 2;
+	string = string.toString().replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+	var OPTS = {
+	    'ENT_NOQUOTES': 0,
+	    'ENT_HTML_QUOTE_SINGLE': 1,
+	    'ENT_HTML_QUOTE_DOUBLE': 2,
+	    'ENT_COMPAT': 2,
+	    'ENT_QUOTES': 3,
+	    'ENT_IGNORE': 4
+	}
+
+	if (quote === 0) noquotes = true;
+
+	if (typeof quote !== 'number') {
+	    quote = [].concat(quote_style);
+	    for (i = 0; i < quote.length; i++) {
+		// Resolve string input to bitwise e.g. 'PATHINFO_EXTENSION' becomes 4
+		if (OPTS[quote[i]] === 0) noquotes = true;
+		else if (OPTS[quote[i]]) optTemp = optTemp | OPTS[quote_style[i]];
+	    }
+	    quote = optTemp;
+	}
+
+	if (quote & OPTS.ENT_HTML_QUOTE_SINGLE) string = string.replace(/&#0*39;/g, "'");
+	if (!noquotes) string = string.replace(/&quot;/g, '"');
+
+	// Put this in last place to avoid escape being double-decoded
+	string = string.replace(/&amp;/g, '&');
+
+	return string;
     }
 });
 

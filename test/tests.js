@@ -1,3 +1,11 @@
+function encode_utf8( s ) {
+    return unescape( encodeURIComponent( s ) );
+}
+
+function decode_utf8( s ) {
+    return decodeURIComponent( escape( s ) );
+}
+
 // Test core functions
 test('core.js', function(){
     
@@ -66,7 +74,7 @@ test('basic.js', function() {
 test('html.js', function() {
 
     // test count
-    expect(6);
+    expect(9);
     
     // nl2br test case
     equal(_str('A\nB').nl2br().end(), 'A<br />B', 'nl2br');
@@ -76,7 +84,10 @@ test('html.js', function() {
     equal(_str('That\'s').stripSlashes().end(), "That's", 'stripSlahes');
 
     // html entities convertion
-    equal(_str('a & b').htmlEntities().end(), 'a &amp; b', 'htmlEntities');
+    equal(_str('£').encodeEntities().end(), '&pound;', 'encodeEntities');
+    equal(_str('&pound;').decodeEntities().end(), decode_utf8('£'), 'decodeEntities');
+    equal(_str('a & b').encodeSpecial().end(), 'a &amp; b', 'encodeSpecial');
+    equal(_str('a &amp; b').decodeSpecial().end(), 'a & b', 'decodeSpecial');
 
     // detect and build <a> with URLs and emails found in the string
     equal(_str('http://google.com').urls().end(), '<a href="http://google.com">http://google.com</a>', 'urls');
