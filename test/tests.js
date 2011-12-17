@@ -1,11 +1,3 @@
-function encode_utf8( s ) {
-    return unescape( encodeURIComponent( s ) );
-}
-
-function decode_utf8( s ) {
-    return decodeURIComponent( escape( s ) );
-}
-
 // Test core functions
 test('core.js', function(){
     
@@ -97,7 +89,7 @@ test('html.js', function() {
 
     // html entities convertion
     equal(_str('£').encodeEntities().end(), '&pound;', 'encodeEntities');
-    equal(_str('&pound;').decodeEntities().end(), decode_utf8('£'), 'decodeEntities');
+    equal(_str('&pound;').decodeEntities().end(), '£', 'decodeEntities');
     equal(_str('a & b').encodeSpecial().end(), 'a &amp; b', 'encodeSpecial');
     equal(_str('a &amp; b').decodeSpecial().end(), 'a & b', 'decodeSpecial');
 

@@ -32,20 +32,9 @@ extend(_str.fn, {
     _emails: function() {
 	return this[0].replace(/(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gi, function($0, $1) {
 	   return '<a href="mailto:'+$0+'">'+$0+'</a>';   
-	});	
-//	return this[0].replace(regex, function($0, $1) {
-//	    return '<a href="mailto:'+$0+'">'+$0+'</a>';   
-//	});
-    },
-    _encodeUtf8: function() {
-	return unescape(encodeURIComponent(this[0]));
-    },
-    _decodeUtf8: function() {
-	return decodeURIComponent(escape(this[0]));
+	});
     },
     _encodeEntities: function(quote) {
-
-	this.decodeUtf8();
 
 	var map = htmlEntitiesTable('HTML_ENTITIES', quote),
 	    symbol = '';
