@@ -2,10 +2,11 @@
 test('core.js', function(){
     
     // test count
-    expect(11);
+    expect(12);
 
     // some basic core tests
     ok(_str, '_str');
+    equal(_str().end(), '', '_str() => empty string');
     equal(_str.init('a')[0], 'a', 'basic string build with init');
     ok(_str.fn === _str.init.prototype, 'fn === in t prototype');
 

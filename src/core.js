@@ -14,8 +14,8 @@ _str.init = function(str) {
     this.history = [];
     this.data = {};
 
-    // set the current string
-    this[0] = str;
+    // set the current string (or create an empty string)
+    this[0] = str || '';
 
     // return object
     return this;

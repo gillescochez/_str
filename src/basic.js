@@ -93,12 +93,10 @@ extend(_str.fn, {
     _reverse: function() {
 	return this[0].split('').reverse().join('');
     },
-    // TODO Improve replace
     _replace: function(src, copy, all) {
 
 	var name, regex, len, i;
 	
-	// if copy is boolean assign value to all
 	if (isBoolean(copy)) all = copy;
 
 	if (isString(src) && isString(copy)) {
@@ -125,7 +123,6 @@ extend(_str.fn, {
 	args.push(true);
 	return this._replace.apply(this, args);
     },
-    // TODO make remove as flexible as replace
     _remove: function(src, all) {
 	
 	var arr = [], 
