@@ -29,7 +29,7 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(24);
+    expect(26);
 
     // subtring methods
     equal(_str('abcd').sub(0,2).end(), 'ab', 'sub(0,2)');
@@ -66,8 +66,10 @@ test('basic.js', function() {
     equal(_str('abcdabcd').replaceAll(['a'],['e']).end(), 'ebcdebcd', 'replaceAll(array, array)');
 
     // TODO Add tests for all cases
-    equal(_str('abcdabcd').remove('a').end(), 'bcdabcd', 'remove');
-    equal(_str('abcdabcd').removeAll('a').end(), 'bcdbcd', 'removeAll');
+    equal(_str('abcdabcd').remove('a').end(), 'bcdabcd', 'remove(str)');
+    equal(_str('abcdabcd').removeAll('a').end(), 'bcdbcd', 'removeAll(str)');
+    equal(_str('abcdabcd').remove(['a','c']).end(), 'bdabcd', 'remove(array)');
+    equal(_str('abcdabcd').removeAll(['a','c']).end(), 'bdbd', 'removeAll(array)');
 
     equal(_str('a').append('b').end(), 'ab', 'append');
     equal(_str('b').prepend('a').end(), 'ab', 'prepend');

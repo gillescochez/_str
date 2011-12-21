@@ -54,6 +54,7 @@ extend(_str.fn, {
 	
 	return ((main == str) ? 0 : ((main > str) ? 1 : -1));
     },
+
     // TODO extend so we can pass it character keys to up character in specific location (low(int), low(array))
     // If boolean are passed used to create shortcut to lowFirst (low(true)) and lowFirstAll (low(true,true))
     _low: function() {
@@ -125,11 +126,21 @@ extend(_str.fn, {
 	return this._replace.apply(this, args);
     },
     // TODO make remove as flexible as replace
-    _remove: function(str) {
-	return this[0].replace(str, '');
+    _remove: function(src, all) {
+	
+	var arr = [], 
+	    len, i;
+
+	if (isArray(src)) {
+	    len = src.length;
+	    for (i = 0; i < len; i++) arr[i] = '';
+	    return this._replace(src, arr, all);
+	}
+
+	return this._replace(src, '', all);
     },
-    _removeAll: function(str) {
-	return this._replace(str, '', true);
+    _removeAll: function(src) {
+	return this._remove(src, true);
     },
     _wordwrap: function(width, sep, cut) {
 
