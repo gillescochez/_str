@@ -8,7 +8,7 @@ test('core.js', function(){
     ok(_str, '_str');
     equal(_str().end(), '', '_str() => empty string');
     equal(_str.init('a')[0], 'a', 'basic string build with init');
-    ok(_str.fn === _str.init.prototype, 'fn === in t prototype');
+    ok(_str.fn === _str.init.prototype, 'fn === init prototype');
 
     // end, size and eq tests
     equal(_str('a').end(), 'a', 'end');
@@ -30,12 +30,14 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(26);
+    expect(28);
 
     // subtring methods
     equal(_str('abcd').sub(0,2).end(), 'ab', 'sub(0,2)');
     equal(_str('abcdabcd').subCount('ab'), 2, 'subCount(ab)');
     equal(_str('abcde').subCompare('bc', 1, 2), 0, 'subCompare(bc, 1, 2)');
+    equal(_str('abcd').subReplace('AB', 0).end(), 'AB', 'subReplace(AB, 0)');
+    equal(_str('abcd').subReplace('AB', 0, 2).end(), 'ABcd', 'subReplace(AB, 0, 2)');
 
     // uppercasing
     equal(_str('a').up().end(), 'A', 'up');
