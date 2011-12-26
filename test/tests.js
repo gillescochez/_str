@@ -2,7 +2,7 @@
 test('core.js', function(){
     
     // test count
-    expect(12);
+    expect(14);
 
     // some basic core tests
     ok(_str, '_str');
@@ -23,6 +23,10 @@ test('core.js', function(){
     equal(_str('a').set('test').append('b').get('test'), 'a', 'basic set / get');
     deepEqual(_str('a').set('testA').append('b').set('testAB').get(), {testA:'a',testAB:'ab'}, 'multiple set / get as object');
     equal(_str('a').set('test','foo').get('test'), 'foo', 'custom value set / get');
+
+    // indexOf / lastIndexOF
+    equal(_str('abcd').indexOf('a'), 0, 'indexOf');
+    equal(_str('abcdacbd').lastIndexOf('a'), 4, 'lastIndexOf');
 
 });
 

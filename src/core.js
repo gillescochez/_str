@@ -68,6 +68,14 @@ extend(_str.fn, {
 	return this.history;
     },
 
+    indexOf: function(str) {
+	return this[0].indexOf(str);
+    },
+
+    lastIndexOf: function(str) {
+	return this[0].lastIndexOf(str);
+    },
+
     // write the current string to the document
     write: function() {
 	document.write(this[0]);
