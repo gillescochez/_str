@@ -160,6 +160,17 @@ extend(_str.fn, {
 
 	return r.join("\n");
     },
+    _concat: function() {
+	
+	if (!arguments.length) return this[0];
+	
+	var len = arguments.length,
+	    i = 0;
+
+	for (; i < len; i++) this[0] += arguments[i];
+	
+	return this[0];
+    },
     _append: function(str) {
 	return this[0]+str;
     },
