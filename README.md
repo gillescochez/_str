@@ -12,7 +12,7 @@ str = _str('example').prepend('this is an ').append('.').upFirst().end();
 console.log(str);
 // str => "This is an example."
 
-str = _str(' email@test.com bla bla bla http://google.com').emails().urls().end();
+str = _str(' email@test.com bla bla bla http://google.com').emailsToLinks().urlsToLinks().end();
 console.log(str);
 // str => "<a href="mailto:email@test.com">email@test.com</a> <a href="http://google.com">http://google.com</a>"
 
