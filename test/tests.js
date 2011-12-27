@@ -104,7 +104,7 @@ test('html.js', function() {
     equal(_str('a &amp; b').decodeSpecial().end(), 'a & b', 'decodeSpecial');
 
     // detect and build <a> with URLs and emails found in the string
-    equal(_str('http://google.com').urls().end(), '<a href="http://google.com">http://google.com</a>', 'urls');
-    equal(_str('email@test.com').emails().end(), '<a href="mailto:email@test.com">email@test.com</a>', 'emails');
+    equal(_str('http://google.com').urlsToLinks().end(), '<a href="http://google.com">http://google.com</a>', 'urlsToLinks');
+    equal(_str('email@test.com').emailsToLinks().end(), '<a href="mailto:email@test.com">email@test.com</a>', 'emailsToLinks');
 
 });

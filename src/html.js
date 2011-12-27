@@ -24,12 +24,12 @@ extend(_str.fn, {
 	    }
 	});
     },
-    _urls: function() {
+    _urlsToLinks: function() {
 	return this[0].replace(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi, function($0, $1) {
 	    return '<a href="'+$0+'">'+$0+'</a>';   
 	});
     },
-    _emails: function() {
+    _emailsToLinks: function() {
 	return this[0].replace(/(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gi, function($0, $1) {
 	   return '<a href="mailto:'+$0+'">'+$0+'</a>';   
 	});
