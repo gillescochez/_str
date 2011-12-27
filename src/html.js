@@ -1,8 +1,12 @@
 // add basic methods
 extend(_str.fn, {
+
+    // convert return carriage to HTML line break
     _nl2br: function() {
 	return this[0].replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br />');
     },
+
+    // remove tags inside the current string
     _stripTags: function(allowed) {
 	
 	allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
@@ -14,6 +18,8 @@ extend(_str.fn, {
 	    return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
 	});
     },
+
+    // remove slashes of the current string
     _stripSlashes: function() {
 	return this[0].replace(/\\(.?)/g, function (ignore, text) {
 	    switch (text) {
@@ -24,14 +30,37 @@ extend(_str.fn, {
 	    }
 	});
     },
+
+    // create a link with the current string
+    _link: function(href, options) {
+	
+	if (isObject(href)) {
+	    options = href;
+	    href = options.href;
+	    delete options.href;
+	}
+
+	var tag = '<a href="' + href + '"',
+	    name;
+
+	if (options) {
+	    for (name in options) tag += ' ' + name + '="' + options[name] + '"';
+	}
+
+	return tag + '>' + this[0] + '</a>';
+    },
+
+    // convert URLS to links
     _urlsToLinks: function() {
 	return this[0].replace(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi, function($0, $1) {
-	    return '<a href="'+$0+'">'+$0+'</a>';   
+	    return '<a href="' + $0 + '">' + $0 + '</a>';   
 	});
     },
+
+    // convert email addresses to links
     _emailsToLinks: function() {
 	return this[0].replace(/(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/gi, function($0, $1) {
-	   return '<a href="mailto:'+$0+'">'+$0+'</a>';   
+	   return '<a href="mailto:' + $0 + '">' + $0 + '</a>';   
 	});
     },
     _encodeEntities: function(quote) {

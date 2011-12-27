@@ -88,7 +88,7 @@ test('basic.js', function() {
 test('html.js', function() {
 
     // test count
-    expect(9);
+    expect(12);
     
     // nl2br test case
     equal(_str('A\nB').nl2br().end(), 'A<br />B', 'nl2br');
@@ -106,5 +106,12 @@ test('html.js', function() {
     // detect and build <a> with URLs and emails found in the string
     equal(_str('http://google.com').urlsToLinks().end(), '<a href="http://google.com">http://google.com</a>', 'urlsToLinks');
     equal(_str('email@test.com').emailsToLinks().end(), '<a href="mailto:email@test.com">email@test.com</a>', 'emailsToLinks');
+
+    // link method test cases
+    equal(_str('abcd').link('http://google.com').end(), '<a href="http://google.com">abcd</a>', 'link(href)');
+    equal(_str('abcd').link('http://google.com', {target: '_blank'}).end(), '<a href="http://google.com" target="_blank">abcd</a>', 'link(href, options)');
+    equal(_str('abcd').link({href: 'http://google.com', target: '_blank'}).end(), '<a href="http://google.com" target="_blank">abcd</a>', 'link(options)');
+
+
 
 });
