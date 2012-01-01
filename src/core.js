@@ -68,12 +68,37 @@ extend(_str.fn, {
 	return this.history;
     },
 
+    // mapping of some basic string functions
     indexOf: function(str) {
 	return this[0].indexOf(str);
     },
 
     lastIndexOf: function(str) {
 	return this[0].lastIndexOf(str);
+    },
+
+    match: function(regex) {
+	return this[0].match(regex);
+    },
+
+    search: function(regex) {
+	return this[0].search(regex);
+    },
+
+    slice: function(begin, end) {
+
+	// begin default to 0 if only 1 argument
+	if (!end) {
+	    end = begin;
+	    begin = 0;
+	}
+
+	return this[0].slice(begin, end);
+    },
+
+    split: function(sep) {
+	if (!sep) sep = ' ';
+	return this[0].split(sep);
     },
 
     // write the current string to the document

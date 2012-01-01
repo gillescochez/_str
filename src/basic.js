@@ -2,9 +2,11 @@
 // add basic methods
 extend(_str.fn, {
     _eq: function(key) {
-	return this[0].substr(key, 1);
+	return this[0].charAt(key);
     },
-
+    _eqCode: function(key) {
+	return this[0].charCodeAt(key);
+    },
     _sub: function(start, end) {
 	return this[0].substr(start, end);
     },
@@ -170,6 +172,10 @@ extend(_str.fn, {
 	for (; i < len; i++) this[0] += arguments[i];
 	
 	return this[0];
+    },
+    _wrap: function(begin, end) {
+	if (!end) end = begin;
+	return begin + this[0] + end;
     },
     _append: function(str) {
 	return this[0]+str;
