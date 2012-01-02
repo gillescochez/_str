@@ -1,8 +1,8 @@
 // Test core functions
 test('core.js', function(){
-    
+     
     // test count
-    expect(14);
+    expect(20);
 
     // some basic core tests
     ok(_str, '_str');
@@ -27,6 +27,14 @@ test('core.js', function(){
     // indexOf / lastIndexOF
     equal(_str('abcd').indexOf('a'), 0, 'indexOf');
     equal(_str('abcdacbd').lastIndexOf('a'), 4, 'lastIndexOf');
+
+    // match / search / slice / split / 
+    deepEqual(_str('a b').split(), ['a','b'], 'split() (default " ")');
+    deepEqual(_str('a,b').split(','), ['a','b'], 'split(,)');
+    equal(_str('abcd').slice(1), 'a', 'slice(1)');
+    equal(_str('abcd').slice(1,2), 'b', 'slice(1,2)');
+    deepEqual(_str('abcd').match(/a/g), ['a'], 'match()');
+    deepEqual(_str('abcd').search(/a/g), 0, 'search()');
 
 });
 
