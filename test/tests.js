@@ -2,7 +2,7 @@
 test('core.js', function(){
      
     // test count
-    expect(20);
+    expect(21);
 
     // some basic core tests
     ok(_str, '_str');
@@ -10,10 +10,11 @@ test('core.js', function(){
     equal(_str.init('a')[0], 'a', 'basic string build with init');
     ok(_str.fn === _str.init.prototype, 'fn === init prototype');
 
-    // end, size and eq tests
+    // end, size, eq and eqCode tests
     equal(_str('a').end(), 'a', 'end');
     equal(_str('abcd').size(), 4, 'size');
     equal(_str('abcd').eq(1).end(), 'b', 'eq');
+    equal(_str('a').eqCode(0).end(), 97, 'eqCode');
 
     // history based tests
     equal(_str('a').append('b').back().end(), 'a', 'back method');
