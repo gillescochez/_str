@@ -173,6 +173,9 @@ extend(_str.fn, {
 	
 	return this[0];
     },
+    _addSlahes: function() {
+	return this[0].replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+    },
     _wrap: function(begin, end) {
 	if (!end) end = begin;
 	return begin + this[0] + end;
