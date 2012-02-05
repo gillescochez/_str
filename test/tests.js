@@ -43,7 +43,7 @@ test('core.js', function(){
 test('basic.js', function() {
 
     // test count
-    expect(29);
+    expect(30);
 
     // subtring methods
     equal(_str('abcd').sub(0,2).end(), 'ab', 'sub(0,2)');
@@ -72,6 +72,10 @@ test('basic.js', function() {
 
     // wrapping up
     equal(_str('abcd abcd abcd').wordwrap(10, '<br />').end(), 'abcd abcd <br />abcd', 'wordwrap(10, <br />)');
+
+    // add slashes
+    equal(_str("abc'd").addSlashes().end(), "abc\\'d", 'addSlashes');
+   // console.log(_str('abcd abcd abcd').addSlashes().end());
 
     // Multiple replace tests to cover all cases
     equal(_str('abcdabcd').replace('a', 'e').end(), 'ebcdabcd', 'replace(string, string)');

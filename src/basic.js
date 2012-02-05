@@ -209,7 +209,7 @@ extend(_str.fn, {
 
 	return input;
     },
-    _addSlahes: function() {
+    _addSlashes: function() {
 	return this[0].replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
     },
     _wrap: function(begin, end) {
