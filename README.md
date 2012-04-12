@@ -47,11 +47,11 @@ Reverse the string to the last modification recorded.
 #### set(String ref [, Mix value])
 
 1 argument: Store the current string state to a given reference
+
 2 arguments: Store a value for a given reference
 
 #### get([String ref])
 
-0 argument: 
 1 argument: Return a state of string matching the given reference.
 
 #### getHistory()
@@ -77,13 +77,17 @@ String.search wrapper
 #### slice(Integer start [, Integer end])
 
 String.slice wrapper
+
 1 argument: Argument is used as end limiter and 0 is used as start
+
 2 arguments: Both start and end are set by the arguments
 
 #### split([String]) 
 
 String.split wrapper
+
 0 argument: seperator default to " "
+
 1 argument: seperator = argument
 
 #### write()
@@ -200,6 +204,7 @@ Escapes single quote, double quotes and backslash characters in current string w
 #### wrap(String start[, String end])
 
 1 argument: Append and prepend start to the current string
+
 2 arguments: Prepend start and append end to the current string
 
 #### append(String str)
