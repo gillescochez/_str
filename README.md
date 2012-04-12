@@ -193,10 +193,6 @@ Wraps buffer to selected number of characters using string break character
 
 Append one or multiple string(s) to the current string
 
-#### pad
-
-
-
 #### addSlashes
 
 Escapes single quote, double quotes and backslash characters in current string with backslashes 
